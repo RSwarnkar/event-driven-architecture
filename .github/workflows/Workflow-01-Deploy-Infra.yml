@@ -1,0 +1,9 @@
+name: Workflow-01 Deploy Infrastructure
+on: workflow_dispatch
+
+jobs: 
+  jobs-01:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo "Hello"
