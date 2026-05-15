@@ -5,6 +5,8 @@
 
 
 ## Tasks:
+0. Build Docker Compose for Producer-Channel-Consumer
+
 1. Deploy Channel: To deploy RabbitMQ docker image to Container app using Github Actions 
 
 2. Deploy Azure Infra using Terraform and Github Actions 

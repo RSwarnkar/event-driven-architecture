@@ -1,0 +1,43 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    hostname: rmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin@123
+
+  telemetry-producer:
+    build:
+      context: ./02-producer/TelemetryRabbitClient
+      dockerfile: dockerfile
+    container_name: telemetry-producer
+    depends_on:
+      - rabbitmq
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
+  telemetry-consumer:
+    build:
+      context: ./03-consumer/TelemetryConsumer
+    container_name: telemetry-consumer
+    depends_on:
+      - rabbitmq
+    volumes:
+      - telemetry-data:/data
+
+volumes:
+  telemetry-data:
+
+
+# docker compose up --build
+# docker attach telemetry-producer
+
+# docker exec -it rabbitmq rabbitmqctl status
+# docker exec -it rabbitmq rabbitmqctl list_queues
+
+# docker attach telemetry-consumer
